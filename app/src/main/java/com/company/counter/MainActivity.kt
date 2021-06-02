@@ -1,25 +1,21 @@
 package com.company.counter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.company.counter.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    var count = 0
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        add_button.setOnClickListener {
-            count++
-            counter_text.text = "$count"
-        }
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        sub_button.setOnClickListener {
-            count--
-            counter_text.text = "$count"
-        }
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
     }
 }
